@@ -1,15 +1,15 @@
 [package]
 name = "one-wire-bus"
 version = "0.1.1"
-authors = ["Nathan Fox <fuchsnj@gmail.com>"]
+authors = ["Nathan Fox <fuchsnj@gmail.com>","Gerhardus Cornelis van Zyl <gerhard@zovra.tech>"]
 license = "MIT/Apache-2.0"
-repository = "https://github.com/fuchsnj/one-wire-bus"
+repository = "https://github.com/zovra/esp32-one-wire-bus"
 edition = "2018"
-keywords = ["embedded", "onewire", "embedded-hal-driver", "1wire"]
+keywords = ["embedded","esp32", "onewire", "esp-hal-driver"]
 readme = "README.md"
 categories = ["embedded", "hardware-support", "no-std"]
 description = """
-A Rust implementation of the 1-Wire protocol for embedded-hal
+A Rust implementation of the 1-Wire protocol for esp-hal
 """
 
 [dependencies]
