@@ -1,7 +1,8 @@
 #![no_std]
 
-use embedded_hal::blocking::delay::DelayUs;
-use embedded_hal::digital::v2::{InputPin, OutputPin};
+use esp_hal::prelude::_embedded_hal_blocking_delay_DelayUs as DelayUs;
+use esp_hal::prelude::_embedded_hal_digital_v2_InputPin as InputPin;
+use esp_hal::prelude::_embedded_hal_digital_v2_OutputPin as OutputPin;
 
 mod address;
 pub mod commands;
