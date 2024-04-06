@@ -1,5 +1,5 @@
 [package]
-name = "one-wire-bus"
+name = "esp-one-wire-bus"
 version = "0.1.1"
 authors = ["Nathan Fox <fuchsnj@gmail.com>", "Gerhardus Cornelis van Zyl <gerhard@zovra.tech>"]
 license = "MIT/Apache-2.0"

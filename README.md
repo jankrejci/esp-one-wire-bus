@@ -3,7 +3,7 @@
 [![crates.io](https://img.shields.io/crates/v/one-wire-bus.svg)](https://crates.io/crates/one-wire-bus)
 [![API](https://docs.rs/one-wire-bus/badge.svg)](https://docs.rs/one-wire-bus)
 
-A Rust implementation of the [1-Wire](https://en.wikipedia.org/wiki/1-Wire) protocol for [embedded-hal](https://github.com/rust-embedded/embedded-hal)
+A Rust implementation of the [1-Wire](https://en.wikipedia.org/wiki/1-Wire) protocol for [esp-hal](https://github.com/esp-rs/esp-hal)
 
 
 ## Quick Start
