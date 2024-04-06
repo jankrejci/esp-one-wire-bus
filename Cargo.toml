@@ -13,7 +13,7 @@ A Rust implementation of the 1-Wire protocol for esp-hal
 """
 
 [dependencies]
-esp-hal = {version="0.16.1", features=["esp32"]}
+esp-hal = {version="0.16.1"}
 
 [features]
 esp32 = ["esp-hal/esp32"]
