@@ -1,8 +1,7 @@
 #![no_std]
 
 use esp_hal::prelude::_embedded_hal_blocking_delay_DelayUs as DelayUs;
-use esp_hal::prelude::_embedded_hal_digital_v2_InputPin as InputPin;
-use esp_hal::prelude::_embedded_hal_digital_v2_OutputPin as OutputPin;
+use esp_hal::gpio::{InputPin, OutputPin};
 
 mod address;
 pub mod commands;
@@ -34,9 +33,9 @@ pub struct OneWire<T> {
 }
 
 impl<T, E> OneWire<T>
-where
-    T: InputPin<Error = E>,
-    T: OutputPin<Error = E>,
+    where
+        T: InputPin,
+        T: OutputPin,
 {
     pub fn new(pin: T) -> OneWireResult<OneWire<T>, E> {
         let mut one_wire = OneWire { pin };
@@ -52,25 +51,27 @@ where
     /// Disconnects the bus, letting another device (or the pull-up resistor) set the bus value
     pub fn release_bus(&mut self) -> OneWireResult<(), E> {
         self.pin
-            .set_high()
+            .set_output_high(true)
             .map_err(|err| OneWireError::PinError(err))
     }
 
     /// Drives the bus low
     pub fn set_bus_low(&mut self) -> OneWireResult<(), E> {
         self.pin
-            .set_low()
+            .set_output_high(false)
             .map_err(|err| OneWireError::PinError(err))
     }
 
     pub fn is_bus_high(&self) -> OneWireResult<bool, E> {
         self.pin
-            .is_high()
+            .is_input_high()
             .map_err(|err| OneWireError::PinError(err))
     }
 
     pub fn is_bus_low(&self) -> OneWireResult<bool, E> {
-        self.pin.is_low().map_err(|err| OneWireError::PinError(err))
+        (!self.pin
+            .is_input_high())
+            .map_err(|err| OneWireError::PinError(err))
     }
 
     fn wait_for_high(&self, delay: &mut impl DelayUs<u16>) -> OneWireResult<(), E> {
@@ -233,8 +234,8 @@ where
         only_alarming: bool,
         delay: &'b mut D,
     ) -> DeviceSearch<'a, 'b, T, D>
-    where
-        D: DelayUs<u16>,
+        where
+            D: DelayUs<u16>,
     {
         DeviceSearch {
             onewire: self,
@@ -369,10 +370,10 @@ pub struct DeviceSearch<'a, 'b, T, D> {
 }
 
 impl<'a, 'b, T, E, D> Iterator for DeviceSearch<'a, 'b, T, D>
-where
-    T: InputPin<Error = E>,
-    T: OutputPin<Error = E>,
-    D: DelayUs<u16>,
+    where
+        T: InputPin,
+        T: OutputPin,
+        D: DelayUs<u16>,
 {
     type Item = OneWireResult<Address, E>;
 
