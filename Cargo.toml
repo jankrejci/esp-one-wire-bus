@@ -1,7 +1,7 @@
 [package]
 name = "one-wire-bus"
 version = "0.1.1"
-authors = ["Nathan Fox <fuchsnj@gmail.com>","Gerhardus Cornelis van Zyl <gerhard@zovra.tech>"]
+authors = ["Nathan Fox <fuchsnj@gmail.com>", "Gerhardus Cornelis van Zyl <gerhard@zovra.tech>"]
 license = "MIT/Apache-2.0"
 repository = "https://github.com/zovra/esp32-one-wire-bus"
 edition = "2021"
