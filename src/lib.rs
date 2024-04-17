@@ -2,7 +2,8 @@
 
 use core::fmt::Debug;
 use esp_hal::prelude::_embedded_hal_blocking_delay_DelayUs as DelayUs;
-use esp_hal::gpio::{InputPin, OutputPin};
+use esp_hal::gpio::{IO,InputPin, OutputPin};
+// use embedded_hal::digital::v2::{InputPin,OutputPin};
 
 mod address;
 pub mod commands;
@@ -33,10 +34,10 @@ pub struct OneWire<T> {
     pin: T,
 }
 
-impl<T, E> OneWire<T>
+impl<T,E> OneWire<T>
     where
         T: OutputPin,
-        E:Debug
+        
 {
     pub fn new(pin: T) -> OneWireResult<OneWire<T>, E> {
         let mut one_wire = OneWire { pin };
@@ -370,12 +371,12 @@ pub struct DeviceSearch<'a, 'b, T, D> {
     only_alarming: bool,
 }
 
-impl<'a, 'b, T, E, D> Iterator for DeviceSearch<'a, 'b, T, D>
+impl<'a, 'b, T,E, D> Iterator for DeviceSearch<'a, 'b, T, D>
     where
         T: InputPin,
         T: OutputPin,
         D: DelayUs<u16>,
-        E:Debug
+
 {
     type Item = OneWireResult<Address, E>;
 
