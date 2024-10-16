@@ -2,9 +2,8 @@
 
 use core::error::Error;
 use core::fmt::Debug;
+use esp_hal::gpio::{InputPin, OutputPin, IO};
 use esp_hal::prelude::_embedded_hal_blocking_delay_DelayUs as DelayUs;
-use esp_hal::gpio::{IO,InputPin, OutputPin};
-// use embedded_hal::digital::v2::{InputPin,OutputPin};
 
 mod address;
 pub mod commands;
@@ -35,10 +34,10 @@ pub struct OneWire<T> {
     pin: T,
 }
 
-impl<T,E> OneWire<T>
-    where
-        T: OutputPin,
-        E: Error
+impl<T, E> OneWire<T>
+where
+    T: OutputPin,
+    E: Error,
 {
     pub fn new(pin: T) -> OneWireResult<OneWire<T>, E> {
         let mut one_wire = OneWire { pin };
@@ -72,9 +71,7 @@ impl<T,E> OneWire<T>
     }
 
     pub fn is_bus_low(&self) -> OneWireResult<bool, E> {
-        (!self.pin
-            .is_input_high())
-            .map_err(|err| OneWireError::PinError(err))
+        (!self.pin.is_input_high()).map_err(|err| OneWireError::PinError(err))
     }
 
     fn wait_for_high(&self, delay: &mut impl DelayUs<u16>) -> OneWireResult<(), E> {
@@ -237,8 +234,8 @@ impl<T,E> OneWire<T>
         only_alarming: bool,
         delay: &'b mut D,
     ) -> DeviceSearch<'a, 'b, T, D>
-        where
-            D: DelayUs<u16>,
+    where
+        D: DelayUs<u16>,
     {
         DeviceSearch {
             onewire: self,
@@ -372,13 +369,12 @@ pub struct DeviceSearch<'a, 'b, T, D> {
     only_alarming: bool,
 }
 
-impl<'a, 'b, T,E, D> Iterator for DeviceSearch<'a, 'b, T, D>
-    where
-        T: InputPin,
-        T: OutputPin,
-        D: DelayUs<u16>,
-        E: Error
-
+impl<'a, 'b, T, E, D> Iterator for DeviceSearch<'a, 'b, T, D>
+where
+    T: InputPin,
+    T: OutputPin,
+    D: DelayUs<u16>,
+    E: Error,
 {
     type Item = OneWireResult<Address, E>;
 
